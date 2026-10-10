@@ -9,13 +9,15 @@ export default function Hero() {
       {/* Left Section */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1 }}
         className="flex-1 text-center md:text-left"
       >
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
           HEY, I'M GAUTAM 👋
         </h1>
+
         <h2 className="text-2xl md:text-3xl font-bold text-red-400 mb-6">
           <Typewriter
             words={[
@@ -31,20 +33,24 @@ export default function Hero() {
             delaySpeed={1500}
           />
         </h2>
+
         <p className="text-lg md:text-xl text-gray-300 max-w-xl leading-relaxed mb-8">
-          With a strong foundation in coding and problem-solving, I build responsive, interactive,
-          and beautifully crafted web applications. Currently focused on MERN stack development,
-          I'm always eager to learn and collaborate on exciting tech projects.
+          With a strong foundation in coding and problem-solving, I build responsive,
+          interactive, and beautifully crafted web applications. Currently focused on
+          MERN stack development, I'm always eager to learn and collaborate on exciting
+          tech projects.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
           <a
-            href="/Resume.pdf"
-            className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full font-semibold text-white shadow-lg flex items-center gap-2"
-            download
+            href="https://drive.google.com/file/d/1Zwwx41PCj5sKDS6SQGQHv3DLP_yBN-dS/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full font-semibold text-white shadow-lg flex items-center justify-center gap-2"
           >
             <FaDownload /> Resume
           </a>
+
           <a
             href="#contact"
             className="border-2 border-white hover:bg-white hover:text-black px-6 py-3 rounded-full font-semibold text-white text-center"
@@ -54,10 +60,11 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Right Section (Profile Image or Animation) */}
+      {/* Right Section (Profile Image) */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1 }}
         className="flex-1 mt-10 md:mt-0 flex justify-center"
       >

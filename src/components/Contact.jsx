@@ -11,6 +11,7 @@ const Contact = () => {
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8 }}
         className="backdrop-blur-md bg-white/60 border border-red-200 shadow-2xl p-12 rounded-3xl max-w-3xl w-full text-center"
       >
@@ -23,31 +24,12 @@ const Contact = () => {
         </p>
 
         <p className="text-3xl font-semibold mb-2 text-black">📧 Email:</p>
-        <p className="text-2xl mb-8 text-gray-700">gautamkumar09630@gmail.com</p>
+        <p className="text-2xl mb-8 text-gray-700">gautamkumar060606@gmail.com</p>
 
         <div className="flex justify-center gap-12 mt-10 text-4xl text-red-600">
-          <a
-            href="https://github.com/Gautamgit-tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-black transition duration-300"
-          >
-            <FaGithub />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/gautam-kumar-854406290"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-black transition duration-300"
-          >
-            <FaLinkedin />
-          </a>
-          <a
-            href="mailto:gautamkumar09630@gmail.com"
-            className="hover:text-black transition duration-300"
-          >
-            <FaEnvelope />
-          </a>
+          <a href="https://github.com/Gautamgit-tech" target="_blank" rel="noopener noreferrer" className="hover:text-black transition duration-300"><FaGithub /></a>
+          <a href="https://www.linkedin.com/in/gautam-kumar-854406290" target="_blank" rel="noopener noreferrer" className="hover:text-black transition duration-300"><FaLinkedin /></a>
+          <a href="mailto:gautamkumar060606@gmail.com" className="hover:text-black transition duration-300"><FaEnvelope /></a>
         </div>
       </motion.div>
     </section>

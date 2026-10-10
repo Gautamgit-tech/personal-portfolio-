@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
@@ -6,7 +7,13 @@ const About = () => {
       id="about"
       className="min-h-[110vh] bg-gradient-to-br from-red-100 via-white to-pink-100 text-gray-800 py-24 px-6 flex justify-center items-center"
     >
-      <div className="backdrop-blur-md bg-white/60 border border-red-200 shadow-2xl p-12 rounded-3xl max-w-5xl w-full transition duration-500 hover:scale-105">
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.65 }}
+        className="backdrop-blur-md bg-white/60 border border-red-200 shadow-2xl p-12 rounded-3xl max-w-5xl w-full transition duration-500 hover:scale-105"
+      >
         <h2 className="text-6xl font-extrabold text-center mb-12 text-red-600 drop-shadow-md">
           About <span className="text-black">Me</span>
         </h2>
@@ -28,7 +35,7 @@ const About = () => {
           I enjoy learning new tools, exploring cutting-edge tech, and creating solutions that are clean,
           scalable, and user-focused. When I'm not coding, I dive into tech blogs, UI design, or solve DSA challenges.
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 };
