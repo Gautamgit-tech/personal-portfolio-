@@ -1,56 +1,63 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Terminal, BookText } from 'lucide-react';
+import { Code2, Database, Laptop, Terminal } from 'lucide-react';
 
 const skillsData = [
   {
+    title: 'Languages',
+    icon: <Code2 size={18} />,
+    skills: ['Java', 'JavaScript (ES6+)', 'SQL'],
+  },
+  {
     title: 'Frontend',
-    description: 'I value simple content structure, clean design and thoughtful interactions.',
-    icon: <Code2 size={44} />,
-    skills: ['HTML5', 'CSS3', 'JavaScript', 'React.js', 'Bootstrap 5'],
+    icon: <Laptop size={18} />,
+    skills: ['React.js', 'HTML5', 'CSS3', 'Responsive Design'],
   },
   {
     title: 'Backend',
-    description: 'I like to code things from scratch and implement efficiently.',
-    icon: <Terminal size={44} />,
-    skills: ['Node.js', 'Express.js', 'REST API', 'MySQL', 'MongoDB'],
+    icon: <Terminal size={18} />,
+    skills: ['Node.js', 'Express.js', 'REST API Design', 'JWT Authentication'],
   },
   {
-    title: 'Miscellaneous',
-    description: 'Some miscellaneous tools or technologies I learned in my career.',
-    icon: <BookText size={44} />,
-    skills: ['Java', 'Git', 'Docker', 'Chrome Extensions', 'MERN Stack'],
+    title: 'Databases',
+    icon: <Database size={18} />,
+    skills: ['MongoDB', 'MySQL', 'Data Modeling', 'Query Optimization'],
+  },
+  {
+    title: 'Core CS',
+    icon: <Code2 size={18} />,
+    skills: ['Data Structures & Algorithms', 'OOP', 'DBMS', 'Operating Systems', 'SDLC'],
+  },
+  {
+    title: 'Tools',
+    icon: <Laptop size={18} />,
+    skills: ['Git/GitHub', 'Postman', 'VS Code', 'npm'],
   },
 ];
 
 export default function Skills() {
   return (
-    <section
-    id="skills"
-    className="relative bg-gradient-to-br from-white via-slate-100 to-white py-24 px-4">
-      {/* White card container */}
-      <div className="bg-white max-w-7xl mx-auto p-16 rounded-3xl shadow-2xl grid grid-cols-1 md:grid-cols-3 gap-12 z-10 relative transition-all duration-500 hover:scale-[1.01]">
+    <section id="skills" className="section-block">
+      <div className="section-wrap">
+        <div className="section-heading">
+          <div><div className="section-kicker">03 / Toolbox</div><h2>Skills & technologies</h2></div>
+          <p>Languages, frameworks, and engineering fundamentals I work with.</p>
+        </div>
+        <div className="skills-grid">
         {skillsData.map((category, index) => (
           <motion.div
-            key={index}
+            key={category.title}
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: index * 0.12 }}
-            className="text-center"
+            className="skill-group"
           >
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#5ef2b4] flex items-center justify-center">
-                {category.icon}
-              </div>
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-3">{category.title}</h2>
-            <p className="text-xl text-gray-700 mb-6 px-4 leading-relaxed">{category.description}</p>
-            <ul className="text-lg font-semibold text-gray-800 space-y-2">
-              {category.skills.map((skill, i) => (
-                <li key={i}>{skill}</li>
-              ))}
-            </ul>
+            <div className="skill-group-head"><span className="skill-index">0{index + 1}</span>{category.icon}<h3>{category.title}</h3></div>
+            <div className="skill-tags">{category.skills.map((skill) => <span key={skill}>{skill}</span>)}</div>
           </motion.div>
         ))}
+        </div>
       </div>
     </section>
   );

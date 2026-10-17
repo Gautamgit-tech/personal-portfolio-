@@ -1,81 +1,77 @@
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
-import { FaDownload } from 'react-icons/fa';
-import profileImage from './profile.jpg';
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-20">
-      {/* Left Section */}
+    <section id="home" className="section-wrap hero">
       <motion.div
         initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        className="flex-1 text-center md:text-left"
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7 }}
       >
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
-          HEY, I'M GAUTAM 👋
+        <div className="eyebrow">Software Developer <span className="status-dot" /> Open to opportunities</div>
+        <h1>
+          <span className="hero-greeting">Hi, I'm</span>
+          <span className="hero-first-name">Gautam</span>
+          <span>Kumar.</span>
         </h1>
-
-        <h2 className="text-2xl md:text-3xl font-bold text-red-400 mb-6">
+        <h2 className="hero-role">
           <Typewriter
             words={[
-              'A Passionate Full Stack Developer 🚀',
-              'Crafting Modern Web Experiences ✨',
-              'React | Node.js | MongoDB | Tailwind ⚙️',
+              'Junior Full Stack Developer',
+              'MERN Stack Developer',
+              'Building useful web experiences',
             ]}
             loop
             cursor
             cursorStyle="|"
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1500}
+            typeSpeed={55}
+            deleteSpeed={35}
+            delaySpeed={1800}
           />
         </h2>
-
-        <p className="text-lg md:text-xl text-gray-300 max-w-xl leading-relaxed mb-8">
-          With a strong foundation in coding and problem-solving, I build responsive,
-          interactive, and beautifully crafted web applications. Currently focused on
-          MERN stack development, I'm always eager to learn and collaborate on exciting
-          tech projects.
+        <p className="hero-copy">
+          I build responsive, interactive web applications and enjoy turning practical ideas into polished products. Currently working as a Junior Full Stack Developer at Digital Dezire, with a focus on the MERN stack.
         </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <div className="hero-actions">
           <a
-            href="https://drive.google.com/file/d/1Zwwx41PCj5sKDS6SQGQHv3DLP_yBN-dS/view?usp=sharing"
+            href="/GautamNew_resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full font-semibold text-white shadow-lg flex items-center justify-center gap-2"
+            className="button-primary"
           >
-            <FaDownload /> Resume
+            View resume <ArrowUpRight size={16} />
           </a>
-
           <a
-            href="#contact"
-            className="border-2 border-white hover:bg-white hover:text-black px-6 py-3 rounded-full font-semibold text-white text-center"
+            href="/GautamNew_resume.pdf"
+            download="GautamNew_resume.pdf"
+            className="button-secondary"
           >
-            Contact Me
+            Download resume <Download size={15} />
           </a>
+          <a href="#projects" className="button-secondary">
+            Explore projects <ArrowDown size={15} />
+          </a>
+        </div>
+        <div className="hero-socials">
+          <a href="https://github.com/Gautamgit-tech" target="_blank" rel="noopener noreferrer"><Github size={15} /> GitHub</a>
+          <a href="https://www.linkedin.com/in/gautam-kumar-854406290" target="_blank" rel="noopener noreferrer"><Linkedin size={15} /> LinkedIn</a>
+          <a href="mailto:gautamkumar060606@gmail.com">Email <ArrowUpRight size={13} /></a>
         </div>
       </motion.div>
-
-      {/* Right Section (Profile Image) */}
       <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        className="flex-1 mt-10 md:mt-0 flex justify-center"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.15 }}
+        className="hero-visual developer-art"
       >
-        <div className="relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-xl">
-          <img
-            src={profileImage}
-            alt="Gautam Profile"
-            className="object-cover w-full h-full"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-10 hover:bg-opacity-0 transition duration-300" />
-        </div>
+        <img
+          className="developer-illustration"
+          src="/developer-illustration.svg"
+          alt="Illustration of a male developer coding at a laptop"
+          fetchPriority="high"
+        />
       </motion.div>
     </section>
   );

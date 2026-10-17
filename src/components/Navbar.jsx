@@ -1,42 +1,53 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { FileText, Menu, Moon, Sun, X } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({ isLight, onToggleTheme }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-900 via-indigo-900 to-gray-900 text-white py-6 px-10 shadow-lg"
-    >
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
-        {/* Logo */}
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 drop-shadow-lg tracking-wide"
+    <header className="site-header">
+      <nav className="nav-inner" aria-label="Main navigation">
+        <a className="brand" href="#home" onClick={closeMenu}>
+          <span className="brand-name">PORTFOLIO</span>
+        </a>
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((isOpen) => !isOpen)}
         >
-          Namaste!
-        </motion.h1>
-
-        {/* Navigation Links */}
-        <ul className="flex space-x-12 text-2xl font-bold">
-          <li>
-            <a href="#about" className="hover:text-cyan-300 transition-all duration-300 ease-in-out">About</a>
-          </li>
-          <li>
-            <a href="#projects" className="hover:text-cyan-300 transition-all duration-300 ease-in-out">Projects</a>
-          </li>
-          <li>
-            <a href="#skills" className="hover:text-cyan-300 transition-all duration-300 ease-in-out">Skills</a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-cyan-300 transition-all duration-300 ease-in-out">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </motion.nav>
+          {menuOpen ? <X size={19} /> : <Menu size={19} />}
+        </button>
+        <div className={`nav-links${menuOpen ? " is-open" : ""}`}>
+          <a href="#about" onClick={closeMenu}>About</a>
+          <a href="#projects" onClick={closeMenu}>Projects</a>
+          <a href="#skills" onClick={closeMenu}>Skills</a>
+          <a href="#education" onClick={closeMenu}>Education</a>
+          <a href="#certifications" onClick={closeMenu}>Certifications</a>
+          <a href="#achievements" onClick={closeMenu}>Achievements</a>
+          <a href="#contact" onClick={closeMenu}>Contact</a>
+        </div>
+        <a
+          className="nav-resume"
+          href="https://drive.google.com/file/d/1Zwwx41PCj5sKDS6SQGQHv3DLP_yBN-dS/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Preview resume"
+        >
+          <FileText size={14} /><span>Resume Preview</span>
+        </a>
+        <button
+          type="button"
+          className="theme-toggle nav-theme-toggle"
+          aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
+          onClick={onToggleTheme}
+        >
+          {isLight ? <Moon size={17} /> : <Sun size={17} />}
+        </button>
+      </nav>
+    </header>
   );
 };
 
