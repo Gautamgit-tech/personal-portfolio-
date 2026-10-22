@@ -2178,7 +2178,7 @@ a {
 .certificate-card {
   display: flex;
   width: 300px;
-  min-height: 228px;
+  min-height: 250px;
   flex: 0 0 auto;
   flex-direction: column;
   padding: 22px;
@@ -2233,15 +2233,34 @@ a {
   line-height: 1.7;
 }
 
+.certificate-date {
+  margin-top: 12px;
+  color: #8796a9;
+  font-size: 11px;
+}
+
 .certificate-card-bottom {
   display: flex;
-  justify-content: space-between;
   margin-top: auto;
   padding-top: 18px;
   color: #8593a4;
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 0.07em;
+}
+
+.certificate-card-bottom a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.certificate-card-bottom a:hover,
+.certificate-card-bottom a:focus-visible {
+  text-decoration: underline;
+}
+
+.certificate-link-placeholder {
+  color: #8593a4;
 }
 
 .certificate-card-bottom span {
