@@ -25,6 +25,14 @@ const projects = [
     github: "https://github.com/Gautamgit-tech/-paradise-nursery",
   },
   {
+  title: "HB+ Team Portal (Google Auth)",
+  label: "REACT NATIVE / FIREBASE",
+  description: "Cross-platform portal with Google OAuth restricted to one company domain. Protected routes, Admin/User roles and Firestore security rules. Non-company accounts see 'Access restricted' by design.",
+  tech: ["React Native", "Expo", "Firebase Auth", "Firestore"],
+  github: "https://github.com/Gautamgit-tech/hbplus-auth",
+  live: "https://hbplus-auth-gautam.netlify.app",
+  },
+  {
     title: "Online Course App",
     label: "PYTHON / DJANGO",
     description: "A Django course platform where learners enroll in courses, take lesson-based exams, and receive an instant score and pass/fail result.",
@@ -78,9 +86,31 @@ const Projects = () => {
                   {project.tech.map((tech) => <span key={tech}>{tech}</span>)}
                 </div>
                 <div className="project-card-actions">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} GitHub repository`}>
-                    <Github size={16} /> View code <ArrowUpRight size={14} />
-                  </a>
+                  {[
+                    {
+                      href: project.github,
+                      label: "View code",
+                      ariaLabel: `Open ${project.title} GitHub repository`,
+                      icon: <Github size={16} />,
+                    },
+                    ...(project.live
+                      ? [{
+                          href: project.live,
+                          label: "Live demo",
+                          ariaLabel: `Open ${project.title} live demo`,
+                        }]
+                      : []),
+                  ].map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.ariaLabel}
+                    >
+                      {link.icon} {link.label} <ArrowUpRight size={14} />
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>

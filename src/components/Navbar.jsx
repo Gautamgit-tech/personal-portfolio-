@@ -29,15 +29,7 @@ const Navbar = ({ isLight, onToggleTheme }) => {
           <a href="#achievements" onClick={closeMenu}>Achievements</a>
           <a href="#contact" onClick={closeMenu}>Contact</a>
         </div>
-        <a
-          className="nav-resume"
-          href="https://drive.google.com/file/d/1Zwwx41PCj5sKDS6SQGQHv3DLP_yBN-dS/view?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Preview resume"
-        >
-          <FileText size={14} /><span>Resume Preview</span>
-        </a>
+        
         <button
           type="button"
           className="theme-toggle nav-theme-toggle"

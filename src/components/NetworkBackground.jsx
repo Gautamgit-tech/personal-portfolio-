@@ -6,15 +6,16 @@ const NetworkBackground = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const context = canvas.getContext("2d");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const points = [];
-    const pointer = { x: -1000, y: -1000 };
+
     let frameId;
     let width = 0;
     let height = 0;
     let pixelRatio = 1;
-    let previousFrameTime = 0;
+    const particles = [];
+    const pointer = { x: -1000, y: -1000 };
 
     const resize = () => {
       width = window.innerWidth;
@@ -26,109 +27,67 @@ const NetworkBackground = () => {
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      const columns = Math.ceil(width / 112);
-      const rows = Math.ceil(height / 108);
-      points.length = 0;
-      for (let row = 0; row <= rows; row += 1) {
-        for (let column = 0; column <= columns; column += 1) {
-          const x = (column + Math.random() * 0.7) * (width / columns);
-          const y = (row + Math.random() * 0.7) * (height / rows);
-          points.push({
-            x,
-            y,
-            velocityX: (Math.random() - 0.5) * 0.045,
-            velocityY: (Math.random() - 0.5) * 0.045,
-            connected: Math.random() > 0.32,
-          });
-        }
+      const count = Math.min(Math.floor(width / 32), 45);
+      particles.length = 0;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.8 + 1,
+          baseAlpha: Math.random() * 0.35 + 0.1,
+          speed: Math.random() * 0.3 + 0.1,
+          angle: Math.random() * Math.PI * 2,
+        });
       }
-      previousFrameTime = 0;
     };
 
     const movePointer = (event) => {
       if (event.pointerType === "touch") return;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
+
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${pointer.x - 14}px, ${pointer.y - 14}px, 0)`;
         cursorRef.current.classList.add("is-visible");
       }
-      if (reducedMotion) draw();
     };
 
     const hideCursor = () => {
       cursorRef.current?.classList.remove("is-visible");
     };
 
-    const draw = (time = 0) => {
+    const draw = () => {
       context.clearRect(0, 0, width, height);
-      const elapsed = previousFrameTime
-        ? Math.min(time - previousFrameTime, 40)
-        : 16;
-      previousFrameTime = time;
 
-      points.forEach((point) => {
-        if (reducedMotion) return;
-        point.x += point.velocityX * elapsed;
-        point.y += point.velocityY * elapsed;
+      particles.forEach((p) => {
+        if (!reducedMotion) {
+          p.y -= p.speed;
+          p.x += Math.sin(p.angle) * 0.3;
+          p.angle += 0.01;
 
-        if (point.x < 0 || point.x > width) {
-          point.velocityX *= -1;
-          point.x = Math.max(0, Math.min(point.x, width));
-        }
-        if (point.y < 0 || point.y > height) {
-          point.velocityY *= -1;
-          point.y = Math.max(0, Math.min(point.y, height));
-        }
-      });
-
-      for (let first = 0; first < points.length; first += 1) {
-        const point = points[first];
-        let nearestCount = 0;
-        if (point.connected) {
-          for (let second = first + 1; second < points.length; second += 1) {
-            const other = points[second];
-            if (!other.connected) continue;
-            const distance = Math.hypot(point.x - other.x, point.y - other.y);
-            if (distance < 145) {
-              context.beginPath();
-              context.moveTo(point.x, point.y);
-              context.lineTo(other.x, other.y);
-              context.strokeStyle = `rgba(48, 151, 198, ${0.22 * (1 - distance / 145)})`;
-              context.lineWidth = 0.85;
-              context.stroke();
-              nearestCount += 1;
-              if (nearestCount === 2) break;
-            }
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
           }
         }
 
-        const pointerDistance = Math.hypot(point.x - pointer.x, point.y - pointer.y);
-        if (pointerDistance < 190) {
-          context.beginPath();
-          context.moveTo(point.x, point.y);
-          context.lineTo(pointer.x, pointer.y);
-          context.strokeStyle = `rgba(71, 205, 255, ${0.42 * (1 - pointerDistance / 190)})`;
-          context.lineWidth = 1;
-          context.stroke();
-        }
+        const dist = Math.hypot(p.x - pointer.x, p.y - pointer.y);
+        const glow = dist < 140 ? (1 - dist / 140) * 0.5 : 0;
 
-        const nearPointer = pointerDistance < 190;
         context.beginPath();
-        context.arc(point.x, point.y, nearPointer ? 2.4 : point.connected ? 1.6 : 1.2, 0, Math.PI * 2);
-        context.fillStyle = nearPointer
-          ? "rgba(107, 226, 255, 0.95)"
-          : point.connected
-            ? "rgba(52, 164, 211, 0.65)"
-            : "rgba(125, 170, 190, 0.38)";
+        context.arc(p.x, p.y, p.radius * (1 + glow), 0, Math.PI * 2);
+        context.fillStyle = `rgba(56, 189, 248, ${p.baseAlpha + glow})`;
+        context.shadowColor = "rgba(56, 189, 248, 0.4)";
+        context.shadowBlur = dist < 140 ? 12 : 0;
         context.fill();
-      }
+        context.shadowBlur = 0;
+      });
 
       if (!reducedMotion) frameId = window.requestAnimationFrame(draw);
     };
+
     resize();
-    draw();
-    draw();
+    
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", movePointer, { passive: true });
     window.addEventListener("blur", hideCursor);

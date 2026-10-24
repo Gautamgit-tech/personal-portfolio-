@@ -73,6 +73,12 @@ a {
   content: '';
   pointer-events: none;
 }
+.network-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .site-header {
   position: fixed;
