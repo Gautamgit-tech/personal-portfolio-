@@ -50,10 +50,19 @@ const NetworkBackground = () => {
         cursorRef.current.style.transform = `translate3d(${pointer.x - 14}px, ${pointer.y - 14}px, 0)`;
         cursorRef.current.classList.add("is-visible");
       }
+
+      if (reducedMotion) {
+        draw();
+      }
     };
 
     const hideCursor = () => {
       cursorRef.current?.classList.remove("is-visible");
+      pointer.x = -1000;
+      pointer.y = -1000;
+      if (reducedMotion) {
+        draw();
+      }
     };
 
     const draw = () => {
@@ -83,12 +92,18 @@ const NetworkBackground = () => {
         context.shadowBlur = 0;
       });
 
-      if (!reducedMotion) frameId = window.requestAnimationFrame(draw);
+      if (!reducedMotion) {
+        frameId = window.requestAnimationFrame(draw);
+      }
     };
 
     resize();
-    
-    window.addEventListener("resize", resize);
+    draw();
+
+    window.addEventListener("resize", () => {
+      resize();
+      if (reducedMotion) draw();
+    });
     window.addEventListener("pointermove", movePointer, { passive: true });
     window.addEventListener("blur", hideCursor);
 
