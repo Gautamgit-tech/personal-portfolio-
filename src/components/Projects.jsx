@@ -4,6 +4,15 @@ import { ArrowUpRight, Github } from "lucide-react";
 
 const projects = [
   {
+    id: "tradepulse",
+    title: "TradePulse — Real-Time Trading Platform",
+    description: "Real-time paper trading for US stocks and crypto, with live market data, candlestick charts, and portfolio tracking.",
+    techStack: ["Java 21", "Spring Boot", "WebSockets", "MongoDB Atlas", "Docker", "Finnhub API"],
+    liveUrl: "https://tradepulse-rc53.onrender.com",
+    githubUrl: "https://github.com/Gautamgit-tech/TradePulse",
+    featured: true,
+  },
+  {
     title: "Job Portal Web Application",
     label: "MERN / WEB APP",
     description: "A two-sided job portal for recruiters and job seekers, with role-based JWT authentication, job search and application tracking, and resume uploads.",
@@ -65,7 +74,7 @@ const Projects = () => {
         <div className="project-grid">
           {projects.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={project.id || project.title}
               className="project-card"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -73,29 +82,29 @@ const Projects = () => {
               transition={{ duration: 0.42, delay: index * 0.06 }}
             >
               <div className={`project-art project-art-${index + 1}`}>
-                <div className="project-art-top"><span>{project.label}</span><span>0{index + 1}</span></div>
+                <div className="project-art-top"><span>{project.label || "FEATURED PROJECT"}</span><span>0{index + 1}</span></div>
                 <div className="project-art-title">{project.title}</div>
-                <div className="project-art-tech">{project.tech.slice(0, 4).join(" · ")}</div>
+                <div className="project-art-tech">{(project.techStack || project.tech).slice(0, 4).join(" · ")}</div>
                 <div className="project-art-orbit" />
               </div>
               <div className="project-card-body">
-                <div className="project-card-meta"><span>PROJECT 0{index + 1}</span><span>PERSONAL WORK</span></div>
+                <div className="project-card-meta"><span>PROJECT 0{index + 1}</span><span>{project.featured ? "FEATURED PROJECT" : "PERSONAL WORK"}</span></div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <div className="project-tags">
-                  {project.tech.map((tech) => <span key={tech}>{tech}</span>)}
+                  {(project.techStack || project.tech).map((tech) => <span key={tech}>{tech}</span>)}
                 </div>
                 <div className="project-card-actions">
                   {[
                     {
-                      href: project.github,
+                      href: project.githubUrl || project.github,
                       label: "View code",
                       ariaLabel: `Open ${project.title} GitHub repository`,
                       icon: <Github size={16} />,
                     },
-                    ...(project.live
+                    ...((project.liveUrl || project.live)
                       ? [{
-                          href: project.live,
+                          href: project.liveUrl || project.live,
                           label: "Live demo",
                           ariaLabel: `Open ${project.title} live demo`,
                         }]
